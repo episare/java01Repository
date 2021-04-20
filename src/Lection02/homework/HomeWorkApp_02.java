@@ -2,7 +2,7 @@ package Lection02.homework;
 
 public class HomeWorkApp_02 {
 
-
+    // Homework to lesson 02
     public static void main (String[] args) {
         System.out.println("Start program");
 
