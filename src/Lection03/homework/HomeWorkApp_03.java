@@ -60,12 +60,12 @@ public class HomeWorkApp_03 {
         int[] arr06 = { 1, 5, 3, 2, 11, 4, 5, 0, 4, 8, -3, 9, 16, 10 };
         int maxValue = 0;
         int minValue = 0;
-        for (int i=0; i<arr06.length; i++) {
-            if (arr06[i] < minValue) {
-                minValue=arr06[i];
+        for (int arrValue : arr06) {
+            if (arrValue < minValue) {
+                minValue = arrValue;
             }
-            if (arr06[i] > maxValue) {
-                maxValue=arr06[i];
+            if (arrValue > maxValue) {
+                maxValue = arrValue;
             }
         }
         System.out.print ("Max value = " + maxValue + "\nMin value = " + minValue);
