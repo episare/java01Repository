@@ -16,6 +16,13 @@ public class Office {
         printAllEmployees(employees, '/');
         System.out.println();
 
+        System.out.println ("List of Name / Age");
+        for (int i=0; i<employees.length; i++) {
+            System.out.println ("Name: " + employees[i].getFirstName() + " " + employees[i].getLastName()
+                + ", Age: " + employees[i].getAge());
+        }
+        System.out.println();
+
         System.out.println ("List of employees over 40");
         for (int i=0; i<employees.length; i++) {
             if (employees[i].getAge() > 40) {

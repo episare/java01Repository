@@ -1,7 +1,6 @@
 package Lection05.homework;
 
 import java.util.Random;
-import java.util.UUID;
 
 public class Employee {
     private Random randomValue=new Random();
