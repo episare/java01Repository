@@ -30,32 +30,31 @@ public class HomeWorkApp_04 {
         printMap();
         System.out.println("Start the game!");
 
-        do {
+        while (true) {
             setTurnOfPlayer();
             if (isDraw()) {
                 result = "It is draw";
                 break;
-            } else if (isWin(markX)) {
+            } else if (isWin(markX,markNumberToWin)) {
                 result = "You win! :)";
                 break;
             }
 
-            if (!setWin(markO, markX)) {
-                if (!blockWin(markO, markX)) {
+            if (!setWin(markO, markX,markNumberToWin)) {
+                if (!blockWin(markO, markX, markNumberToWin)) {
                     setTurnOfAI();
                 }
             }
             if (isDraw()) {
                 result = "It is draw";
                 break;
-            } else if (isWin(markO)) {
+            } else if (isWin(markO,markNumberToWin)) {
                 result = "You loss :(";
                 break;
             }
 
             printMap();
         }
-        while (true) ;
 
         System.out.println(result);
         printMap();
@@ -117,76 +116,68 @@ public class HomeWorkApp_04 {
         return true;
     }
 
-    public static boolean isWin(char player) {
-        boolean result;
+    public static boolean isWin(char player, int hitsToWin) {
+
         // check rows
-        result=true;
-        for (int x=0; x<mapSizeX; x++) {
-            for (int y=0; y<mapSizeY; y++) {
+        int x;
+        int y;
+        for (x=0; x<mapSizeX; x++) {
+            for (y=0; y<mapSizeY; y++) {
                 if (map[x][y] != player) {
-                    result=false;
                     break;  // next row
                 }
             }
- //           System.out.println ("row:"+result);
-            if (result) return true;
-            result=true;
+//            System.out.println ("row:"+y);
+            if (y >= hitsToWin) return true;
         }
 
         // check columns
-        result=true;
-        for (int j=0; j<map.length; j++) {
-             for (int i=0; i<map[j].length; i++) {
-                if (map[i][j] != player) {
-                    result=false;
+        for (y=0; y<mapSizeY; y++) {
+             for (x=0; x<mapSizeX; x++) {
+                if (map[x][y] != player) {
                     break;
                 }
             }
- //           System.out.println ("column:"+result);
-            if (result) return true;
-            result=true;
+//           System.out.println ("column:"+x);
+            if (x >= hitsToWin) return true;
         }
 
         // check left diagonal
-        result=true;
-        for (int i=0; i<map.length; i++) {
-           if (map[i][i] != player) {
-                result=false;
+        for (x=0; x<mapSizeX; x++) {
+           if (map[x][x] != player) {
                 break;
             }
         }
-//        System.out.println ("left:"+result);
-        if (result) return true;
+//        System.out.println ("left:"+x);
+        if (x >= hitsToWin) return true;
 
 
         // check right diagonal
-        result=true;
-        for (int i=0; i<map.length; i++) {
-            if (map[i][map.length-1-i] != player) {
-                result=false;
+        for (x=0; x<mapSizeX; x++) {
+            if (map[x][mapSizeX-1-x] != player) {
                 break;
             }
         }
- //       System.out.println ("right:"+result);
-        return result;
+//       System.out.println ("right:"+x);
+        return (x == mapSizeX);
     }
 
-    public static boolean blockWin (char player, int markOpponent) {
+    public static boolean blockWin (char player, int markOpponent, int hitsToWin) {
         // check rows
         int hitsNumber = 0;
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                if (map[i][j] == markOpponent) {
+        for (int x = 0; x < mapSizeX; x++) {
+            for (int y = 0; y < mapSizeY; y++) {
+                if (map[x][y] == markOpponent) {
                     hitsNumber++;
-                } else if (map[i][j] == player) {
+                } else if (map[x][y] == player) {
                     hitsNumber = 0;
                 }
             }
   //          System.out.println("Rows number hitsNumber="+hitsNumber);
-            if (hitsNumber == map.length - 1) {
-                for (int j = 0; j < map[i].length; j++) {
-                    if (map[i][j] == emptyField) {
-                        map[i][j] = player;
+            if (hitsNumber == hitsToWin - 1) {
+                for (int y = 0; y < mapSizeY; y++) {
+                    if (map[x][y] == emptyField) {
+                        map[x][y] = player;
                         return true;
                     }
                 }
@@ -195,19 +186,19 @@ public class HomeWorkApp_04 {
         }
         // check columns
         hitsNumber = 0;
-        for (int j = 0; j < map[0].length; j++) {
-            for (int i = 0; i < map.length; i++) {
-                if (map[i][j] == markOpponent) {
+        for (int y = 0; y < mapSizeY; y++) {
+            for (int x = 0; x < mapSizeX; x++) {
+                if (map[x][y] == markOpponent) {
                     hitsNumber++;
-                } else if (map[i][j] == player) {
+                } else if (map[x][y] == player) {
                     hitsNumber = 0;
                 }
             }
  //           System.out.println("Columns number hitsNumber="+hitsNumber);
-            if (hitsNumber == map[0].length - 1) {
-                for (int i = 0; i < map.length; i++) {
-                    if (map[i][j] == emptyField) {
-                        map[i][j] = player;
+            if (hitsNumber == hitsToWin - 1) {
+                for (int x = 0; x < mapSizeX; x++) {
+                    if (map[x][y] == emptyField) {
+                        map[x][y] = player;
                         return true;
                     }
                 }
@@ -217,18 +208,18 @@ public class HomeWorkApp_04 {
 
         // check left diagonal
         hitsNumber = 0;
-        for (int i=0; i<map.length; i++) {
-            if (map[i][i] == markOpponent) {
+        for (int x=0; x<mapSizeX; x++) {
+            if (map[x][x] == markOpponent) {
                 hitsNumber++;
-            } else if (map[i][i] == player) {
+            } else if (map[x][x] == player) {
                 hitsNumber = 0;
             }
         }
  //       System.out.println("Left diagonal number hitsNumber="+hitsNumber);
-        if (hitsNumber == map[0].length - 1) {
-            for (int i = 0; i < map.length; i++) {
-                if (map[i][i] == emptyField) {
-                    map[i][i] = player;
+        if (hitsNumber == hitsToWin - 1) {
+            for (int x = 0; x < mapSizeX; x++) {
+                if (map[x][x] == emptyField) {
+                    map[x][x] = player;
                     return true;
                 }
             }
@@ -236,25 +227,25 @@ public class HomeWorkApp_04 {
 
         // check right diagonal
         hitsNumber = 0;
-        for (int i=0; i<map.length; i++) {
-            if (map[i][map.length-1-i] == markOpponent) {
+        for (int y=0; y<mapSizeY; y++) {
+            if (map[y][mapSizeY-1-y] == markOpponent) {
                 hitsNumber++;
-            } else if (map[i][map.length-1-i] == player) {
+            } else if (map[y][mapSizeY-1-y] == player) {
                 hitsNumber = 0;
             }
         }
  //       System.out.println("Right diagonal number hitsNumber="+hitsNumber);
-        if (hitsNumber == map[0].length - 1) {
-            for (int i = 0; i < map.length; i++) {
-                if (map[i][map.length-1-i] == emptyField) {
-                    map[i][map.length-1-i] = player;
+        if (hitsNumber == hitsToWin - 1) {
+            for (int y = 0; y < mapSizeY; y++) {
+                if (map[y][mapSizeY-1-y] == emptyField) {
+                    map[y][mapSizeY-1-y] = player;
                     return true;
                 }
             }
         }
         return false;
     }
-    public static boolean setWin (char player, int markOpponent) {
+    public static boolean setWin (char player, int markOpponent, int hitsToWin) {
         // check rows
         int hitsNumber;
         for (int x = 0; x < mapSizeX; x++) {
@@ -267,7 +258,7 @@ public class HomeWorkApp_04 {
                 }
             }
  //           System.out.println("Rows number hitsNumber="+hitsNumber);
-            if (hitsNumber == markNumberToWin - 1) {
+            if (hitsNumber == hitsToWin - 1) {
                 for (int y = 0; y < mapSizeY; y++) {
                     if (map[x][y] == emptyField) {
                         map[x][y] = player;
@@ -287,7 +278,7 @@ public class HomeWorkApp_04 {
                 }
             }
   //          System.out.println("Columns number hitsNumber="+hitsNumber);
-            if (hitsNumber == markNumberToWin - 1) {
+            if (hitsNumber == hitsToWin - 1) {
                 for (int x = 0; x < mapSizeX; x++) {
                     if (map[x][y] == emptyField) {
                         map[x][y] = player;
@@ -307,7 +298,7 @@ public class HomeWorkApp_04 {
             }
         }
  //       System.out.println("Left diagonal number hitsNumber="+hitsNumber);
-        if (hitsNumber == markNumberToWin - 1) {
+        if (hitsNumber == hitsToWin - 1) {
             for (int x = 0; x <mapSizeX; x++) {
                 if (map[x][x] == emptyField) {
                     map[x][x] = player;
@@ -318,18 +309,18 @@ public class HomeWorkApp_04 {
 
         // check right diagonal
         hitsNumber = 0;
-        for (int x=0; x<mapSizeX; x++) {
-            if (map[x][map.length-1-x] == player) {
+        for (int y=0; y<mapSizeY; y++) {
+            if (map[y][mapSizeY-1-y] == player) {
                 hitsNumber++;
-            } else if (map[x][map.length-1-x] == markOpponent) {
+            } else if (map[y][mapSizeY-1-y] == markOpponent) {
                 hitsNumber = 0;
             }
         }
   //      System.out.println("Right diagonal number hitsNumber="+hitsNumber);
-        if (hitsNumber == markNumberToWin - 1) {
-            for (int x = 0; x < mapSizeX; x++) {
-                if (map[x][mapSizeX-1-x] == emptyField) {
-                    map[x][mapSizeX-1-x] = player;
+        if (hitsNumber == hitsToWin - 1) {
+            for (int y = 0; y < mapSizeY; y++) {
+                if (map[y][mapSizeY-1-y] == emptyField) {
+                    map[y][mapSizeY-1-y] = player;
                     return true;
                 }
             }
