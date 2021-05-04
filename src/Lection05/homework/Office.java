@@ -1,4 +1,5 @@
 package Lection05.homework;
+import java.util.UUID;
 
 public class Office {
     public static int numberOfEmployees;
@@ -26,7 +27,7 @@ public class Office {
         System.out.println ("List of employees over 40");
         for (int i=0; i<employees.length; i++) {
             if (employees[i].getAge() > 40) {
-                printEmployee(employees[i], '/');
+                employees[i].printEmployee('/');
             }
         }
         System.out.println();
@@ -37,17 +38,9 @@ public class Office {
 
     }
 
-    public static void printEmployee (Employee employee, char delimiter) {
-        System.out.println ("" + employee.getuniquePersonalId() + delimiter
-                + employee.getFirstName()+ " " + employee.getLastName() + delimiter
-                + employee.getPosition()+ delimiter + employee.getPhoneNumber() + delimiter
-                + employee.getSalary() + delimiter + employee.getAge());
-
-    }
-
     public static void printAllEmployees (Employee[] listEmployees, char delimiter) {
         for (int i=0; i<listEmployees.length; i++) {
-            printEmployee(listEmployees[i], delimiter);
+            listEmployees[i].printEmployee(delimiter);
         }
     }
 
