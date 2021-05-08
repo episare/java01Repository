@@ -15,15 +15,15 @@ public class Employee {
     public Employee (String valueFirstName, String valueLastName, String valuePosition, String valuePhoneNumber,
                      int valueSalary, int valueAge) {
 
-        uniquePersonalId=setUniquePersonalId();
+        this.uniquePersonalId=setUniquePersonalId();
 
-        lastName=valueLastName;
-        firstName=valueFirstName;
+        this.lastName=valueLastName;
+        this.firstName=valueFirstName;
 
-        position=valuePosition;
-        phoneNumber=valuePhoneNumber;
-        salary=valueSalary;
-        age=valueAge;
+        this.position=valuePosition;
+        this.phoneNumber=valuePhoneNumber;
+        this.salary=valueSalary;
+        this.age=valueAge;
 
     }
 

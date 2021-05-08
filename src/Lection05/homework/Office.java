@@ -44,7 +44,7 @@ public class Office {
         }
     }
 
-    public static void increaseSalaryOverMinAge (Employee[] listEmployees, int increaseValue, int minAge) {
+    private static void increaseSalaryOverMinAge (Employee[] listEmployees, int increaseValue, int minAge) {
         for (int i=0; i<listEmployees.length; i++) {
             if (listEmployees[i].getAge() > minAge) {
                 listEmployees[i].setSalary(listEmployees[i].getSalary()+increaseValue);
