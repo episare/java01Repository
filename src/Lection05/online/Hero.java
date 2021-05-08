@@ -20,8 +20,8 @@ public class Hero {
 //        sword.dealDamage();
 //    }
 
-    public Hero(int valueHealth, int valueSpeed, String valueName) {
-        health = valueHealth;
+    public Hero(int health, int valueSpeed, String valueName) {
+        health = health;
         speed = valueSpeed;
         name = valueName;
         sword = new Sword();

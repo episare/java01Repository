@@ -1,5 +1,7 @@
 package Lection05.online;
 
+import java.util.Random;
+
 /**
  * Created by Aleksandr Gladkov [Anticisco]
  * Date: 28.04.2021
@@ -7,9 +9,13 @@ package Lection05.online;
 
 public class Fabric {
 
+    public static Random random = new Random();
+
     public static void main(String[] args) {
 //        Hero hero1 = new Hero();
         Hero hero1 = new Hero(150, 50, "Patrik");
+
+        System.out.println("random.toString() " + random.toString() );
 
 
 //        Hero hero2 = new Hero(999, 1508, "Lancelot");
