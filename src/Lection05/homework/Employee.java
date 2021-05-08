@@ -1,5 +1,4 @@
 package Lection05.homework;
-
 import java.util.Random;
 
 public class Employee {
@@ -15,17 +14,20 @@ public class Employee {
 
     public Employee (String valueFirstName, String valueLastName, String valuePosition, String valuePhoneNumber,
                      int valueSalary, int valueAge) {
-        uniquePersonalId=randomValue.nextInt(99999);
-        lastName=valueLastName;
-        firstName=valueFirstName;
 
-        position=valuePosition;
-        phoneNumber=valuePhoneNumber;
-        salary=valueSalary;
-        age=valueAge;
+        this.uniquePersonalId=setUniquePersonalId();
+
+        this.lastName=valueLastName;
+        this.firstName=valueFirstName;
+
+        this.position=valuePosition;
+        this.phoneNumber=valuePhoneNumber;
+        this.salary=valueSalary;
+        this.age=valueAge;
+
     }
 
-    public int getuniquePersonalId() {
+    public int getUniquePersonalId() {
         return uniquePersonalId;
     }
 
@@ -67,6 +69,18 @@ public class Employee {
 
     public void setPhoneNumber (String newPhoneNumber) {
         phoneNumber=newPhoneNumber;
+    }
+    public void printEmployee (char delimiter) {
+        System.out.println ("" + uniquePersonalId + delimiter
+                + firstName+ " " + lastName + delimiter
+                + position+ delimiter + phoneNumber + delimiter
+                + salary + delimiter + age);
+
+    }
+
+    private int setUniquePersonalId () {
+ //       return randomValue.nextInt(99999);
+        return Math.abs(this.hashCode());
     }
 
 }
