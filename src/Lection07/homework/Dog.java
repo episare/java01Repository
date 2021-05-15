@@ -26,7 +26,7 @@ public class Dog extends Animal {
 
     public void swim (int distance) {
         if (distance <= this.distanceCanSwim) {
-            System.out.println(this.type + " " + this.name + " just swam " + distance + " meters.");
+            System.out.println(this.type + " " + this.name + " can run " + distanceCanSwim + " meters."  + "It just swam " + distance + " meters.");
         } else {
             System.out.println(this.type + " " + this.name + " can swim no more then " + this.distanceCanSwim + " meters.");
         }

@@ -29,7 +29,7 @@ public class MyAnimals {
         int distanceSwim = random.nextInt(10)+15;
 
         System.out.println ("Must run: " + distanceRun+ " meters. ");
-        System.out.println ("Must swim: " + distanceSwim+ " meters. ");
+        System.out.println ("Must swim: " + distanceSwim+ " meters. \n ");
 
         for (int i=0; i < allAnimals.length; i++) {
             allAnimals[i].run(distanceRun);
@@ -37,6 +37,7 @@ public class MyAnimals {
             if (allAnimals[i] instanceof Dog) {
                 ((Dog) allAnimals[i]).swim(distanceSwim);
             }
+            System.out.println();
             Thread.sleep(3000);
         }
 
